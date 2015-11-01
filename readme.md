@@ -16,6 +16,12 @@ gulp
 cp .env.example .env
 # set your settings
 vim .env
+# create autoload file
+composer dump-autoload
+# create DB tables
+php artisan migrate
+# setup some data into DB
+php artisan db:seed
 # start unit tests
 vendor/bin/phpunit
 ```
