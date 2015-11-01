@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAutoModelsTable extends Migration
+class CreateAutoGenerationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,14 @@ class CreateAutoModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('auto_models', function (Blueprint $table) {
+        Schema::create('auto_generations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('mark_id')->unsigned();
-            $table->foreign('mark_id')
-                ->references('id')->on('auto_marks')
+            $table->integer('model_id')->unsigned();
+            $table->integer('start_year_production');
+            $table->integer('end_year_production')->nullable();
+            $table->foreign('model_id')
+                ->references('id')->on('auto_models')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
@@ -30,6 +32,6 @@ class CreateAutoModelsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('auto_models');
+        Schema::drop('auto_generations');
     }
 }

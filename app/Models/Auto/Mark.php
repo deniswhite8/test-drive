@@ -1,21 +1,21 @@
 <?php
 
 namespace App\Models\Auto;
-use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Illuminate\Database\Eloquent\Model;
 
 /**
- * Auto models
+ * Auto mark
  *
  * @package App\Models\Auto
  */
-class Model extends EloquentModel
+class Mark extends Model
 {
     /**
      * The table associated with the model
      *
      * @var string
      */
-    protected $table = 'auto_models';
+    protected $table = 'auto_marks';
 
     /**
      * Indicates if the model should be timestamped
@@ -32,18 +32,10 @@ class Model extends EloquentModel
     protected $fillable = ['name'];
 
     /**
-     * Get mark
+     * Get mark models
      */
-    public function mark()
+    public function models()
     {
-        return $this->belongsTo(Mark::class);
-    }
-
-    /**
-     * Get mark generations
-     */
-    public function generations()
-    {
-        return $this->hasMany(Generation::class);
+        return $this->hasMany(\App\Models\Auto\Model::class);
     }
 }

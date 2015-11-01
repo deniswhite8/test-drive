@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAutoBrandsTable extends Migration
+class CreateAutoGearboxTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateAutoBrandsTable extends Migration
      */
     public function up()
     {
-        Schema::create('auto_brands', function (Blueprint $table) {
+        Schema::create('auto_gearbox_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
         });
@@ -25,6 +25,6 @@ class CreateAutoBrandsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('auto_brands');
+        Schema::drop('auto_gearbox_types');
     }
 }
