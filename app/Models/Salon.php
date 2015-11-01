@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -17,4 +17,13 @@ class Salon extends Model
      */
     protected $fillable = ['name', 'description', 'city', 'address',
         'phone', 'work_time', 'latitude', 'longitude', 'image'];
+
+
+    /**
+     * Salon autos
+     */
+    public function autos()
+    {
+        return $this->belongsToMany(Auto::class, 'salon_auto');
+    }
 }

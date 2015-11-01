@@ -16,4 +16,13 @@ class Auto extends Model
      * @var array
      */
     protected $fillable = ['description', 'image'];
+
+
+    /**
+     * Auto salons
+     */
+    public function salons()
+    {
+        return $this->belongsToMany(Salon::class, 'salon_auto');
+    }
 }
