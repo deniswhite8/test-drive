@@ -19,6 +19,7 @@ class CreateAutosTable extends Migration
             $table->integer('generation_id')->unsigned()->nullable();
             $table->integer('body_type_id')->unsigned();
             $table->integer('gearbox_type_id')->unsigned();
+            $table->integer('mileage')->unsigned()->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();

@@ -11,10 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('client.welcome');
+Route::group(['namespace' => 'Client'], function() {
+    Route::get('/', 'SearchController@index');
 });
 
-Route::get('login', function () {
-    return view('client.login');
+Route::group(['namespace' => 'Api', 'prefix' => 'api'], function() {
+    Route::post('search', 'SearchController@index');
+
+    Route::group(['namespace' => 'Auto', 'prefix' => 'auto'], function() {
+        Route::resource('mark.models', 'MarkModelsController', ['only' => ['index']]);
+        Route::resource('model.generations', 'ModelGenerationsController', ['only' => ['index']]);
+    });
 });

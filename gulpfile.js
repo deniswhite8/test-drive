@@ -7,6 +7,6 @@ elixir(function(mix) {
         })
         .browserify('app.js')
         .version(['css/app.css', 'js/bundle.js'])
-        .copy('node_modules/bootstrap/dist/fonts/**', elixir.config.publicDir + '/fonts')
+        .copy('node_modules/bootstrap/dist/fonts/**', elixir.config.publicDir + '/build/fonts')
     ;
 });

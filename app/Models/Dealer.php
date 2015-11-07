@@ -16,4 +16,12 @@ class Dealer extends Model
      * @var array
      */
     protected $fillable = ['name', 'description', 'image'];
+
+    /**
+     * Get dealer salons
+     */
+    public function salons()
+    {
+        return $this->hasMany(Salon::class);
+    }
 }

@@ -8,6 +8,10 @@
     "bootstrap": "^3.3.5",
     "jquery": "^2.1.4",
     "underscore": "^1.8.3",
-    "backbone": "^1.2.3"
+    "backbone": "^1.2.3",
+    "napa": "^2.0.2"
+  },
+  "scripts": {
+    "install": "napa danielfarrell/bootstrap-combobox"
   }
 }

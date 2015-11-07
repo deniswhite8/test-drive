@@ -15,7 +15,7 @@ class Generation extends Model
      *
      * @var string
      */
-    protected $table = 'auto_generation';
+    protected $table = 'auto_generations';
 
     /**
      * Indicates if the model should be timestamped

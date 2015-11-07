@@ -26,4 +26,12 @@ class Salon extends Model
     {
         return $this->belongsToMany(Auto::class, 'salon_auto');
     }
+
+    /**
+     * Get dealer
+     */
+    public function dealer()
+    {
+        $this->belongsTo(Dealer::class);
+    }
 }
