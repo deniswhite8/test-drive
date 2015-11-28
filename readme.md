@@ -18,6 +18,8 @@ cp .env.example .env
 vim .env
 # create autoload file
 composer dump-autoload
+# generate secure key
+php artisan key:generate
 # create DB tables
 php artisan migrate
 # setup some data into DB
