@@ -1,0 +1,28 @@
+.glyphicon-refresh-animate {
+    .animation(spin 1.0s infinite linear)
+}
+
+@keyframes spin {
+    from { .rotate(0deg); }
+    to { .rotate(360deg); }
+}
+
+.search-form {
+    &__submit {
+        width: 70px;
+
+        .glyphicon {
+            display: none;
+        }
+
+        &._loading {
+            .glyphicon {
+                display: initial;
+            }
+
+            ._text {
+                display: none;
+            }
+        }
+    }
+}

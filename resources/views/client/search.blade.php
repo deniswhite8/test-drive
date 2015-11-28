@@ -26,7 +26,9 @@
 @stop
 
 @section('content')
-    <form class="form-inline" id="searchForm">
+    <div class="ajax-loader" id="preloader"></div>
+
+    <form class="form-inline search-form" id="searchForm">
         <div class="form-group">
             <select name="auto[mark]" id="autoMark" class="form-control js-combobox">
                 <option value="" selected disabled hidden>Марка</option>
@@ -48,7 +50,15 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Найти</button>
+        <button type="submit" class="btn btn-primary search-form__submit" id="searchFormSubmit">
+            <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+            <span class="_text">Найти</span>
+        </button>
+
+        <span id="searchFormMessage"
+              data-not-found-string="Ничего не найдено"
+              data-refine-search="Уточните критерии поиска"
+              class="help-block"></span>
     </form>
 
     <div id="map" style="width: 600px; height: 400px"></div>

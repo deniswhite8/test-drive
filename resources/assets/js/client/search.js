@@ -66,10 +66,16 @@ var SearchForm = Backbone.View.extend({
         this.$_marksSelect = $('#autoMark');
         this.$_modelsSelect = $('#autoModel');
         this.$_generationsSelect = $('#autoGeneration');
+        this.$_formMessage = $('#searchFormMessage');
+        this.$_submitBtn = $('#searchFormSubmit');
         this._map = params.map;
+
+        this.$_formMessage.hide();
     },
 
     doLoadModels: function() {
+        this.$_modelsSelect.clear();
+
         var selectedMark = this.$_marksSelect.val();
         if (!selectedMark) return;
 
@@ -79,6 +85,8 @@ var SearchForm = Backbone.View.extend({
     },
 
     doLoadGenerations: function() {
+        this.$_generationsSelect.clear();
+
         var selectedModel = this.$_modelsSelect.val();
         if (!selectedModel) return;
 
@@ -89,14 +97,28 @@ var SearchForm = Backbone.View.extend({
 
     doSearchSalons: function(event) {
         event.preventDefault();
+        this.$_formMessage.hide();
+        this._map.clearPoints();
+
+        if (!this.$_marksSelect.val() || !this.$_modelsSelect.val()) {
+            this.$_formMessage.text(this.$_formMessage.data('refineSearch')).show();
+            return;
+        }
 
         var salons = new Salons(),
             self = this;
 
         salons.search(this.$el.serializeObject(), {
+            beforeSend: function() {
+                self.$_submitBtn.addClass('_loading');
+            },
+
+            complete: function() {
+                self.$_submitBtn.removeClass('_loading');
+            },
+
             success: function() {
                 var points = [];
-                self._map.clearPoints();
 
                 salons.each(function(salon) {
                     self._map.addSalonPoint(salon);
@@ -105,6 +127,8 @@ var SearchForm = Backbone.View.extend({
 
                 if (points.length) {
                     self._map.setBoundsByPoints(points);
+                } else {
+                    self.$_formMessage.text(self.$_formMessage.data('notFoundString')).show();
                 }
             }
         });
@@ -116,7 +140,13 @@ var SearchForm = Backbone.View.extend({
         collection.fetch({
             beforeSend: function() {
                 $selectElement.children().not(':first').remove();
+                self.$_submitBtn.addClass('_loading');
             },
+
+            complete: function() {
+                self.$_submitBtn.removeClass('_loading');
+            },
+
             success: function() {
                 collection.each(function (entity) {
                     $selectElement.append(self._optionTemplate({
@@ -184,10 +214,12 @@ var YMap = Backbone.View.extend({
 });
 
 
+// init map and search form
 ymaps.ready(function() {
-    // init map and search form
     new SearchForm({
         el: $('#searchForm'),
         map: new YMap({el: $('#map')})
     });
+
+    $('#preloader').fadeOut();
 });
