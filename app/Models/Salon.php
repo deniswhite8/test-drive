@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Models;
-use Illuminate\Database\Eloquent\Model;
+use SleepingOwl\Models\SleepingOwlModel;
 
 /**
  * Salon
  *
  * @package App
  */
-class Salon extends Model
+class Salon extends SleepingOwlModel
 {
     /**
      * The attributes that are mass assignable
@@ -32,6 +32,6 @@ class Salon extends Model
      */
     public function dealer()
     {
-        $this->belongsTo(Dealer::class);
+        return $this->belongsTo(Dealer::class);
     }
 }

@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Models\Auto;
-use Illuminate\Database\Eloquent\Model;
+use SleepingOwl\Models\SleepingOwlModel;
 
 /**
  * Auto generation
  *
  * @package App\Models\Auto
  */
-class Generation extends Model
+class Generation extends SleepingOwlModel
 {
     /**
      * The table associated with the model
@@ -29,7 +29,7 @@ class Generation extends Model
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'model'];
 
     /**
      * Get model

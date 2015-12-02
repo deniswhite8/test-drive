@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Models\Auto;
-use Illuminate\Database\Eloquent\Model;
+use SleepingOwl\Models\SleepingOwlModel;
 
 /**
  * Auto mark
  *
  * @package App\Models\Auto
  */
-class Mark extends Model
+class Mark extends SleepingOwlModel
 {
     /**
      * The table associated with the model

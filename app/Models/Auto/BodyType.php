@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Model\Auto;
-use Illuminate\Database\Eloquent\Model;
+namespace App\Models\Auto;
+use SleepingOwl\Models\SleepingOwlModel;
 
 /**
  * Body type
  *
  * @package App\Model\Auto
  */
-class BodyType extends Model
+class BodyType extends SleepingOwlModel
 {
     /**
      * The table associated with the model
@@ -30,4 +30,14 @@ class BodyType extends Model
      * @var array
      */
     protected $fillable = ['name'];
+
+    /**
+     * To option array
+     *
+     * @return array
+     */
+    public static function getList()
+    {
+        return self::lists('name', 'id')->all();
+    }
 }

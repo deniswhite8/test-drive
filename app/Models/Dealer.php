@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Models;
-use Illuminate\Database\Eloquent\Model;
+use SleepingOwl\Models\SleepingOwlModel;
 
 /**
  * Dealer
  *
  * @package App
  */
-class Dealer extends Model
+class Dealer extends SleepingOwlModel
 {
     /**
      * The attributes that are mass assignable

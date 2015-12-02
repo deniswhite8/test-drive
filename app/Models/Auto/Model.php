@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Models\Auto;
-use Illuminate\Database\Eloquent\Model as EloquentModel;
+use SleepingOwl\Models\SleepingOwlModel;
 
 /**
  * Auto models
  *
  * @package App\Models\Auto
  */
-class Model extends EloquentModel
+class Model extends SleepingOwlModel
 {
     /**
      * The table associated with the model
@@ -29,7 +29,7 @@ class Model extends EloquentModel
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'mark_id'];
 
     /**
      * Get mark
