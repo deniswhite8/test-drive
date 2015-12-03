@@ -1,5 +1,6 @@
-.admin-panel {
+body {
     &::before {
+        z-index: 1100;
         display: block;
         content: ' ';
         position: absolute;
@@ -8,4 +9,9 @@
         height: 5px;
         background: url("@{img-path}/admin/top.png");
     }
+}
+
+.dropdown-menu {
+    max-height: 300px;
+    overflow-y: auto;
 }
