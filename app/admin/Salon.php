@@ -24,7 +24,5 @@ Admin::model(\App\Models\Salon::class)
         FormItem::text('phone', 'Phone');
         FormItem::textarea('work_time', 'Work Time');
         FormItem::textarea('description', 'Description');
-//        FormItem::text('latitude', 'Latitude *')->required(true)->validationRule('numeric');
-//        FormItem::text('longitude', 'Longitude *')->required(true)->validationRule('numeric');
-        FormItem::map()->setLabel('Coordinates')->setAttributes('latitude', 'longitude');
+        FormItem::map()->setLabel('Coordinates')->setAttributes('latitude', 'longitude')->required(true);
     });

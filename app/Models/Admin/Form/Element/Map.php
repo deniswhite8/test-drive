@@ -24,7 +24,7 @@ class Map extends BaseFormItem
     {
         $elementId = "{$this->latName}_{$this->longName}";
 
-        return $this->formBuilder->label($elementId, $this->label) .
+        $content = $this->formBuilder->label($elementId, $this->label) .
             $this->formBuilder->hidden($this->latName,
                 $this->form->getValueForName($this->latName),
                 ['id' => "{$elementId}_lat"]) .
@@ -33,6 +33,9 @@ class Map extends BaseFormItem
                 ['id' => "{$elementId}_long"]) .
             "<div id=\"$elementId\" class=\"js-map-input\"></div>"
             ;
+
+        $html = app('SleepingOwl\Html\HtmlBuilder');
+        return $html->tag('div', ['class' => 'form-group'], $content);
     }
 
     /**
