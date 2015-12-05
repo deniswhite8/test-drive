@@ -15,7 +15,8 @@ elixir(function(mix) {
         .less(['admin.less'], elixir.config.cssOutput + '/admin.css', {
             paths: __dirname + '/node_modules/'
         })
+        .browserify('admin.js', elixir.config.jsOutput + '/admin.js')
     ;
 
-    mix.version(['css/app.css', 'js/bundle.js', 'css/admin.css'])
+    mix.version(['css/app.css', 'js/bundle.js', 'css/admin.css', 'js/admin.js'])
 });
