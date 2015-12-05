@@ -1,6 +1,9 @@
 # Test-Drive Car Website
 Based on [laravel framework](http://laravel.com/).
 
+## Requirement
+Php `intl` extension
+
 ## Setup Project
 ```sh
 # copy project source code
@@ -24,6 +27,9 @@ php artisan key:generate
 php artisan migrate
 # setup some data into DB
 php artisan db:seed
+# setup sleeping-owl admin panel
+php artisan vendor:publish
+php artisan admin:install
 # start unit tests
 vendor/bin/phpunit
 ```
