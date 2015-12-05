@@ -25,6 +25,7 @@ Admin::model(\App\Models\Auto\Model::class)
         Column::string('mark.name', 'Mark');
     })
     ->form(function() {
+        FormItem::table()->setName('mark')->setModel(\App\Models\Auto\Mark::class)->setLabel('Mark Id *');
         FormItem::text('mark_id', 'Mark Id *')->required(true)->validationRule('integer');
         FormItem::text('name', 'Name *')->required(true);
     });

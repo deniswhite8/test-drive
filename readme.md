@@ -30,6 +30,8 @@ php artisan db:seed
 # setup sleeping-owl admin panel
 php artisan vendor:publish
 php artisan admin:install
+# change admin password
+php artisan admin:administrators --password
 # start unit tests
 vendor/bin/phpunit
 ```

@@ -16,7 +16,7 @@ class Salon extends SleepingOwlModel
      * @var array
      */
     protected $fillable = ['name', 'description', 'city', 'address',
-        'phone', 'work_time', 'latitude', 'longitude', 'image'];
+        'phone', 'work_time', 'latitude', 'longitude', 'image', 'dealer_id'];
 
 
     /**

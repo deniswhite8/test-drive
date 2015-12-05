@@ -23,6 +23,7 @@ class Map extends BaseFormItem
     public function render()
     {
         $elementId = "{$this->latName}_{$this->longName}";
+        $html = app('SleepingOwl\Html\HtmlBuilder');
 
         $content = $this->formBuilder->label($elementId, $this->label) .
             $this->formBuilder->hidden($this->latName,
@@ -31,10 +32,9 @@ class Map extends BaseFormItem
             $this->formBuilder->hidden($this->longName,
                 $this->form->getValueForName($this->longName),
                 ['id' => "{$elementId}_long"]) .
-            "<div id=\"$elementId\" class=\"js-map-input\"></div>"
-            ;
+            $html->tag('div', ['class' => 'js-map-input', 'id' => $elementId])
+        ;
 
-        $html = app('SleepingOwl\Html\HtmlBuilder');
         return $html->tag('div', ['class' => 'form-group'], $content);
     }
 
@@ -62,6 +62,8 @@ class Map extends BaseFormItem
     {
         $this->latName = $latName;
         $this->longName = $longName;
+
+        $this->name = $this->latName;
 
         return $this;
     }
