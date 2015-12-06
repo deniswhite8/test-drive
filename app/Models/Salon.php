@@ -22,6 +22,12 @@ class Salon extends SleepingOwlModel implements ModelWithImageFieldsInterface
     protected $fillable = ['name', 'description', 'city', 'address', 'autos',
         'phone', 'work_time', 'latitude', 'longitude', 'image', 'dealer_id', 'city_id'];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['image_thumbnail'];
 
     /**
      * Salon autos
@@ -64,9 +70,20 @@ class Salon extends SleepingOwlModel implements ModelWithImageFieldsInterface
      *
      * @return array
      */
-    public function getImageFields() {
+    public function getImageFields()
+    {
         return [
             'image' => 'salons/'
         ];
+    }
+
+    /**
+     * Get image thumbnail attribute
+     *
+     * @return string
+     */
+    public function getImageThumbnailAttribute()
+    {
+        return $this->image->thumbnail('original');
     }
 }

@@ -5,13 +5,19 @@
 @section('head')
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script id="salonBalloonTemplate" type="text/template">
-        <address>
+        <address class="salon-balloon">
             <p><b><%= salon.get('name') %></b></p>
+
+            <% if (_image = salon.get('image_thumbnail')) { %>
+                <img class="_image" src="<%= _image %>"
+                     alt="<%= salon.get('name') %>"/>
+            <% } %>
+
             <% if (_description = salon.get('description')) { %>
                 <p><%= _description %></p>
             <% } %>
             <p>
-                <%= salon.get('city') %>, <%= salon.get('address') %>
+                <%= salon.get('city').name %>, <%= salon.get('address') %>
                 <% if (_phone = salon.get('phone')) { %>
                     <br/>
                     Тел.: <%= _phone %>
@@ -61,5 +67,5 @@
               class="help-block"></span>
     </form>
 
-    <div id="map" style="width: 600px; height: 400px"></div>
+    <div class="salon-map" id="map"></div>
 @stop

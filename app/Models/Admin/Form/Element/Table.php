@@ -27,10 +27,14 @@ class Table extends BaseFormItem
         $columns = $modelItem->getColumns();
         $rows = $modelItem->isAsync() ? [] : $modelClass::all();
 
-        $relationField = $this->formBuilder->getModel()->{$this->name};
-        $selectedIds = is_numeric($relationField) ?
-            (array) $relationField : $relationField->lists('id')->toArray();
-        $isMultiselect = !is_numeric($relationField);
+        $modelInstance = $this->formBuilder->getModel();
+        $relationField = $modelInstance->{$this->name};
+        $isMultiselect = !is_numeric($relationField) && !is_null($relationField);
+        $selectedIds = [];
+        if ($modelInstance->exists) {
+            $selectedIds = is_numeric($relationField) ?
+                (array)$relationField : $relationField->lists('id')->toArray();
+        }
 
         array_pop($columns); // remove control column
         array_unshift($columns,

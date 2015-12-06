@@ -1,9 +1,20 @@
 "use strict";
 
 /**
+ * Model model
+ */
+var Model = Backbone.Model.extend({
+    getLabel: function() {
+        return this.get('name');
+    }
+});
+
+/**
  * Auto model collection
  */
 var Models = Backbone.Collection.extend({
+    model: Model,
+
     url: function() {
         return 'api/auto/mark/' + this._markId + '/models'
     },
@@ -15,9 +26,22 @@ var Models = Backbone.Collection.extend({
 });
 
 /**
+ * Generation model
+ */
+var Generation = Backbone.Model.extend({
+    getLabel: function() {
+        return this.get('name') +
+            ' (' + this.get('start_year_production') + ' - ' +
+            (this.get('end_year_production') || '...') + ')';
+    }
+});
+
+/**
  * Auto generation collection
  */
 var Generations = Backbone.Collection.extend({
+    model: Generation,
+
     url: function() {
         return 'api/auto/model/' + this._modelId + '/generations'
     },
@@ -25,6 +49,10 @@ var Generations = Backbone.Collection.extend({
     setModelId: function(modelId) {
         this._modelId = modelId;
         return this;
+    },
+
+    getLabel: function() {
+        return this.get('name') + 123;
     }
 });
 
@@ -150,7 +178,7 @@ var SearchForm = Backbone.View.extend({
             success: function() {
                 collection.each(function (entity) {
                     $selectElement.append(self._optionTemplate({
-                        value: entity.get('id'), label: entity.get('name')
+                        value: entity.get('id'), label: entity.getLabel()
                     }));
                 });
                 $selectElement.trigger('refresh');

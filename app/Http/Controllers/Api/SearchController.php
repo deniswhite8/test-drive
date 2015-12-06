@@ -47,7 +47,7 @@ class SearchController extends Controller
             if ($gearboxType = $request->input('auto.gearbox')) {
                 $query->where('gearbox_type_id', $gearboxType);
             }
-        })->get();
+        })->with('city')->get();
 
         return $salons->toJson();
     }

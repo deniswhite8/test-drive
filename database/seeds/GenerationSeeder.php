@@ -16,7 +16,14 @@ class GenerationSeeder extends Seeder
     public function run()
     {
         DB::table('auto_generations')->delete();
-        $csv = Reader::createFromPath(__DIR__ . '/data/generations.csv');
-        DB::table('auto_generations')->insert($csv->fetchAssoc());
+
+        $data = Reader::createFromPath(__DIR__ . '/data/generations.csv')->fetchAssoc();
+        foreach ($data as &$row) {
+            if (!$row['end_year_production']) {
+                $row['end_year_production'] = null;
+            }
+        }
+
+        DB::table('auto_generations')->insert($data);
     }
 }
