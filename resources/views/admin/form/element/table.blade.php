@@ -4,13 +4,16 @@
 
     <div class="col-lg-12">
         <div class="table-responsive">
-            <table class="table table-striped table-hover js-input-table" id="dataTable"
+            <table class="table table-striped table-hover js-input-table"
                     {!! $modelItem->renderTableAttributes() !!}>
-                <input type="hidden" class="js-table-input-value" name="{{ $name }}" id="{{ $name }}_tableValue">
+                <input type="hidden" class="js-table-input-value"
+                       value="{{ implode(',', $selected) }}"
+                       @if ($multiselect) data-multiselect="1" @endif
+                       name="{{ $name }}" id="{{ $name }}_tableValue">
+                <input type="hidden" name="{{$name}}_multiselect" value="{{ (int)$multiselect }}">
 
                 <thead>
                     <tr>
-                        <th style="width:10px"></th>
                         @foreach ($columns as $column)
                             {!! $column->renderHeader() !!}
                         @endforeach
@@ -19,14 +22,6 @@
                     <tbody>
                     @foreach ($rows as $row)
                         <tr>
-                            <td>
-                                <input @if(!$multiselect) type="checkbox" @else type="radio" @endif
-                                       name="{{ $name }}_tableGroup"
-                                       data-id="{{ $row->id }}"
-                                       data-value-id="{{ $name }}_tableValue"
-                                       class="js-table-input-group"
-                                       @if(in_array($row->id, $selected)) checked @endif>
-                            </td>
                             @foreach ($columns as $column)
                                 {!! $column->render($row, count($rows)) !!}
                             @endforeach

@@ -18,7 +18,7 @@ Admin::model(\App\Models\Salon::class)
         Column::date('created_at');
     })
     ->form(function() {
-        FormItem::text('dealer_id', 'Dealer Id *')->required(true)->validationRule('integer');
+        FormItem::table()->setName('dealer_id')->setLabel('Dealer Id *')->setAlias('dealers');
         FormItem::text('name', 'Name *')->required(true);
         FormItem::text('city', 'City *')->required(true);
         FormItem::text('address', 'Address *')->required(true);
@@ -26,4 +26,5 @@ Admin::model(\App\Models\Salon::class)
         FormItem::textarea('work_time', 'Work Time');
         FormItem::textarea('description', 'Description');
         FormItem::map()->setLabel('Coordinates')->setAttributes('latitude', 'longitude');
+        FormItem::table()->setName('autos')->setLabel('Autos')->setAlias('autos');
     });

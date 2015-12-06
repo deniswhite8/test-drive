@@ -6,3 +6,5 @@ AssetManager::addScript(elixir('js/admin.js'));
 
 FormItem::register('map', \App\Models\Admin\Form\Element\Map::class);
 FormItem::register('table', \App\Models\Admin\Form\Element\Table::class);
+
+Column::register('select', \App\Models\Admin\Table\Column\Select::class);

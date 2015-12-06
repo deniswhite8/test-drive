@@ -15,7 +15,7 @@ class Salon extends SleepingOwlModel
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'city', 'address',
+    protected $fillable = ['name', 'description', 'city', 'address', 'autos',
         'phone', 'work_time', 'latitude', 'longitude', 'image', 'dealer_id'];
 
 
@@ -33,5 +33,17 @@ class Salon extends SleepingOwlModel
     public function dealer()
     {
         return $this->belongsTo(Dealer::class);
+    }
+
+    /**
+     * Set autos
+     *
+     * @param array $autoIds
+     */
+    public function setAutosAttribute($autoIds)
+    {
+        if (is_array($autoIds)) {
+            $this->autos()->sync($autoIds);
+        }
     }
 }

@@ -19,9 +19,9 @@ Admin::model(\App\Models\Auto::class)
         Column::date('created_at');
     })
     ->form(function() {
-        FormItem::text('mark_id', 'Mark Id *')->required(true)->validationRule('integer');
-        FormItem::text('model_id', 'Model Id *')->required(true)->validationRule('integer');
-        FormItem::text('generation_id', 'Generation Id')->validationRule('integer');
+        FormItem::table()->setName('mark_id')->setLabel('Mark Id *')->setAlias('marks');
+        FormItem::table()->setName('model_id')->setLabel('Model Id *')->setAlias('models');
+        FormItem::table()->setName('generation_id')->setLabel('Generation Id')->setAlias('generations');
 
         FormItem::select('body_type_id', 'Body Type *')->required(true)
             ->list(\App\Models\Auto\BodyType::class);

@@ -29,7 +29,7 @@ class Generation extends SleepingOwlModel
      *
      * @var array
      */
-    protected $fillable = ['name', 'model'];
+    protected $fillable = ['name', 'model_id'];
 
     /**
      * Get model

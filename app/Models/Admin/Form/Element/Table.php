@@ -4,6 +4,7 @@ namespace App\Models\Admin\Form\Element;
 
 use Illuminate\Support\Str;
 use SleepingOwl\Admin\Admin;
+use SleepingOwl\Admin\Columns\Column;
 use SleepingOwl\Admin\Models\Form\FormItem\BaseFormItem;
 
 /**
@@ -13,14 +14,8 @@ use SleepingOwl\Admin\Models\Form\FormItem\BaseFormItem;
  */
 class Table extends BaseFormItem
 {
-    /** @var string $modelClass Model class */
-    protected $modelClass;
-
     /** @var string $modelAlias Model alias */
     protected $modelAlias = null;
-
-    /** @var bool $isMultiselect Is multiselect */
-    protected $isMultiselect = false;
 
     /**
      * @return string
@@ -28,33 +23,41 @@ class Table extends BaseFormItem
     public function render()
     {
         $modelItem = Admin::instance()->models->modelWithAlias($this->modelAlias);
-        $modelClass = $this->modelClass;
+        $modelClass = $modelItem->getModelClass();
         $columns = $modelItem->getColumns();
+        $rows = $modelItem->isAsync() ? [] : $modelClass::all();
+
+        $relationField = $this->formBuilder->getModel()->{$this->name};
+        $selectedIds = is_numeric($relationField) ?
+            (array) $relationField : $relationField->lists('id')->toArray();
+        $isMultiselect = !is_numeric($relationField);
+
         array_pop($columns); // remove control column
-        $model = $this->formBuilder->getModel();
-        $selectedIds = $model->{$this->name}()->get()->lists('id')->toArray();
+        array_unshift($columns,
+            Column::select()->setMultiselect($isMultiselect)
+                ->setGroupName($this->name)->setSelected($selectedIds)
+        ); // add select column
 
         return view('admin.form.element.table', [
-            'title'         => $this->label,
-            'name'          => $this->name,
-            'modelItem'     => $modelItem,
-            'columns'       => $columns,
-            'rows'          => $modelClass::all(),
-            'selected'   => $selectedIds,
-            'multiselect' => $this->isMultiselect
+            'title'       => $this->label,
+            'name'        => $this->name,
+            'modelItem'   => $modelItem,
+            'columns'     => $columns,
+            'rows'        => $rows,
+            'selected'    => $selectedIds,
+            'multiselect' => $isMultiselect
         ]);
     }
 
     /**
      * Set model
      *
-     * @param string $modelClass Model class
+     * @param string $modelAlias Model alias
      * @return $this
      */
-    public function setModel($modelClass)
+    public function setAlias($modelAlias)
     {
-        $this->modelClass = $modelClass;
-        $this->modelAlias = Str::snake(Str::plural(class_basename($modelClass)));
+        $this->modelAlias = $modelAlias;
         return $this;
     }
 
@@ -83,12 +86,18 @@ class Table extends BaseFormItem
     }
 
     /**
-     * Set is multiselect
+     * Update request data
      *
-     * @return $this
+     * @param array $data
      */
-    public function multiselect($value = true)
+    public function updateRequestData(&$data)
     {
-        $this->isMultiselect = $value;
+        $field = $data[$this->name];
+        $value = empty($field) ? [] : explode(',', $field);
+        if (!request($this->name . '_multiselect')) {
+            $value = reset($value);
+        }
+
+        $data[$this->name] = $value;
     }
 }
