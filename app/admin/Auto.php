@@ -19,8 +19,8 @@ Admin::model(\App\Models\Auto::class)
         Column::date('created_at');
     })
     ->form(function() {
-        FormItem::table()->setName('mark_id')->setLabel('Mark Id *')->setAlias('marks');
-        FormItem::table()->setName('model_id')->setLabel('Model Id *')->setAlias('models');
+        FormItem::table()->setName('mark_id')->setLabel('Mark *')->setAlias('marks');
+        FormItem::table()->setName('model_id')->setLabel('Model *')->setAlias('models');
         FormItem::table()->setName('generation_id')->setLabel('Generation Id')->setAlias('generations');
 
         FormItem::select('body_type_id', 'Body Type *')->required(true)
@@ -29,5 +29,6 @@ Admin::model(\App\Models\Auto::class)
             ->list(\App\Models\Auto\GearboxType::class);
 
         FormItem::text('mileage', 'Mileage')->validationRule('integer');
-        FormItem::textarea('description', 'Description');
+        FormItem::ckeditor('description', 'Description');
+        FormItem::image('image', 'Image');
     });

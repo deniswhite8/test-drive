@@ -21,6 +21,7 @@ Admin::menu()->url('/')->label('Start page')->icon('fa-dashboard')
 Admin::menu(\App\Models\Salon::class)->label('Salons')->icon('fa-map-marker');
 Admin::menu(\App\Models\Auto::class)->label('Autos')->icon('fa-car');
 Admin::menu(\App\Models\Dealer::class)->label('Dealers')->icon('fa-building');
+Admin::menu(\App\Models\City::class)->label('Cities')->icon('fa-university');
 
 Admin::menu()->label('Auto attributes')->icon('fa-list')->items(function() {
     Admin::menu(\App\Models\Auto\Mark::class)->label('Marks')->icon('fa-dot-circle-o');

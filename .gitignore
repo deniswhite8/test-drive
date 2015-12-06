@@ -5,6 +5,7 @@
 /public/fonts
 /public/build
 /public/packages
+/public/images
 Homestead.yaml
 .env
 .idea

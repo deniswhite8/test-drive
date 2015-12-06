@@ -6,15 +6,19 @@ use App\Models\Auto\GearboxType;
 use App\Models\Auto\Generation;
 use App\Models\Auto\Mark;
 use App\Models\Auto\Model;
+use SleepingOwl\Models\Interfaces\ModelWithImageFieldsInterface;
 use SleepingOwl\Models\SleepingOwlModel;
+use SleepingOwl\Models\Traits\ModelWithImageOrFileFieldsTrait;
 
 /**
  * Auto model
  *
  * @package App\Models
  */
-class Auto extends SleepingOwlModel
+class Auto extends SleepingOwlModel implements ModelWithImageFieldsInterface
 {
+    use ModelWithImageOrFileFieldsTrait;
+
     /**
      * The attributes that are mass assignable
      *
@@ -81,5 +85,16 @@ class Auto extends SleepingOwlModel
     public function gearboxType()
     {
         return $this->belongsTo(GearboxType::class);
+    }
+
+    /**
+     * Get image fields
+     *
+     * @return array
+     */
+    public function getImageFields() {
+        return [
+            'image' => 'autos/'
+        ];
     }
 }

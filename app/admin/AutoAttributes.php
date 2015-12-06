@@ -25,7 +25,7 @@ Admin::model(\App\Models\Auto\Model::class)
         Column::string('mark.name', 'Mark');
     }, false)
     ->form(function() {
-        FormItem::table()->setName('mark_id')->setLabel('Mark Id *')->setAlias('marks');
+        FormItem::table()->setName('mark_id')->setLabel('Mark *')->setAlias('marks');
         FormItem::text('name', 'Name *')->required(true);
     });
 
@@ -40,7 +40,7 @@ Admin::model(\App\Models\Auto\Generation::class)
         Column::string('model.name', 'Model');
     })
     ->form(function() {
-        FormItem::table()->setName('model_id')->setLabel('Model Id *')->setAlias('models');
+        FormItem::table()->setName('model_id')->setLabel('Model *')->setAlias('models');
         FormItem::text('name', 'Name *')->required(true);
     });
 

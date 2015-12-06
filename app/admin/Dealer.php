@@ -13,5 +13,6 @@ Admin::model(\App\Models\Dealer::class)
     })
     ->form(function() {
         FormItem::text('name', 'Name *')->required(true);
-        FormItem::textarea('description', 'Description');
+        FormItem::ckeditor('description', 'Description');
+        FormItem::image('image', 'Image');
     });

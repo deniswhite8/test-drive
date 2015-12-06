@@ -1,15 +1,19 @@
 <?php
 
 namespace App\Models;
+use SleepingOwl\Models\Interfaces\ModelWithImageFieldsInterface;
 use SleepingOwl\Models\SleepingOwlModel;
+use SleepingOwl\Models\Traits\ModelWithImageOrFileFieldsTrait;
 
 /**
  * Dealer
  *
- * @package App
+ * @package App\Model
  */
-class Dealer extends SleepingOwlModel
+class Dealer extends SleepingOwlModel implements ModelWithImageFieldsInterface
 {
+    use ModelWithImageOrFileFieldsTrait;
+
     /**
      * The attributes that are mass assignable
      *
@@ -23,5 +27,16 @@ class Dealer extends SleepingOwlModel
     public function salons()
     {
         return $this->hasMany(Salon::class);
+    }
+
+    /**
+     * Get image fields
+     *
+     * @return array
+     */
+    public function getImageFields() {
+        return [
+            'image' => 'dealers/'
+        ];
     }
 }
