@@ -19,7 +19,7 @@ class Salon extends SleepingOwlModel implements ModelWithImageFieldsInterface
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'city', 'address', 'autos',
+    protected $fillable = ['name', 'description', 'city', 'address', 'autos', 'email',
         'phone', 'work_time', 'latitude', 'longitude', 'image', 'dealer_id', 'city_id'];
 
     /**

@@ -23,6 +23,7 @@ Admin::model(\App\Models\Salon::class)
         FormItem::table()->setName('city_id')->setLabel('City *')->setAlias('cities');
         FormItem::text('address', 'Address *')->required(true);
         FormItem::text('phone', 'Phone');
+        FormItem::text('email', 'Email');
         FormItem::textarea('work_time', 'Work Time');
         FormItem::ckeditor('description', 'Description');
         FormItem::map()->setLabel('Coordinates')->setAttributes('latitude', 'longitude');
