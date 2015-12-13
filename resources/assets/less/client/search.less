@@ -7,8 +7,8 @@
     to { .rotate(360deg); }
 }
 
-.search-form {
-    &__submit {
+.ajax-form {
+    .btn[type=submit] {
         width: 70px;
 
         .glyphicon {
@@ -30,10 +30,19 @@
 .salon-map {
     width: 600px;
     height: 400px;
+}
 
-    .salon-balloon {
-        ._image {
-            width: 150px;
-        }
+.salon-balloon {
+    border: none;
+    margin-bottom: 0;
+
+    ._image {
+        width: 150px;
+    }
+}
+
+.message-modal {
+    .modal-header {
+        border: none;
     }
 }

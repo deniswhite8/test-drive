@@ -32,7 +32,7 @@ class Table extends BaseFormItem
         $isMultiselect = !is_numeric($relationField) && !is_null($relationField);
         $selectedIds = [];
         if ($modelInstance->exists) {
-            $selectedIds = is_numeric($relationField) ?
+            $selectedIds = is_numeric($relationField) || is_null($relationField) ?
                 (array)$relationField : $relationField->lists('id')->toArray();
         }
 

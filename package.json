@@ -9,7 +9,9 @@
     "jquery": "^2.1.4",
     "underscore": "^1.8.3",
     "backbone": "^1.2.3",
-    "napa": "^2.0.2"
+    "napa": "^2.0.2",
+    "jquery-datetimepicker": "^2.4.0",
+    "bootstrap-validator": "^0.9.0"
   },
   "scripts": {
     "install": "napa danielfarrell/bootstrap-combobox"

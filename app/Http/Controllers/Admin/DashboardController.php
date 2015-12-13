@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Auto;
 use App\Models\Dealer;
+use App\Models\Order;
 use App\Models\Salon;
 
 /**
@@ -20,6 +21,7 @@ class DashboardController extends Controller
     public function index()
     {
         return view('admin.dashboard', [
+            'orderCount' => Order::count(),
             'dealerCount' => Dealer::count(),
             'salonCount' => Salon::count(),
             'autoCount' => Auto::count()

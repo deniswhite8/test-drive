@@ -31,4 +31,11 @@ $(function() {
             combobox.$element.val('');
         })
     ;
+
+    $('input.js-datetime').datetimepicker({
+        format: 'd.m.Y H:i',
+        lang: 'ru',
+        step: 30,
+        minDate: 0
+    });
 });

@@ -8,7 +8,7 @@ use SleepingOwl\Models\Traits\ModelWithImageOrFileFieldsTrait;
 /**
  * Dealer
  *
- * @package App\Model
+ * @package App\Models
  */
 class Dealer extends SleepingOwlModel implements ModelWithImageFieldsInterface
 {

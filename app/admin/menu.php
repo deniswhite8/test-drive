@@ -18,6 +18,7 @@
 Admin::menu()->url('/')->label('Start page')->icon('fa-dashboard')
     ->uses('App\Http\Controllers\Admin\DashboardController@index');
 
+Admin::menu(\App\Models\Order::class)->label('Orders')->icon('fa-check-square-o');
 Admin::menu(\App\Models\Salon::class)->label('Salons')->icon('fa-map-marker');
 Admin::menu(\App\Models\Auto::class)->label('Autos')->icon('fa-car');
 Admin::menu(\App\Models\Dealer::class)->label('Dealers')->icon('fa-building');

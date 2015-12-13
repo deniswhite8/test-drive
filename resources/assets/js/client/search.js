@@ -101,10 +101,22 @@ var SearchForm = Backbone.View.extend({
         this.$_formMessage.hide();
     },
 
+    getMarkId: function() {
+        return this.$_marksSelect.val();
+    },
+
+    getModelId: function() {
+        return this.$_modelsSelect.val();
+    },
+
+    getGenerationId: function() {
+        return this.$_generationsSelect.val();
+    },
+
     doLoadModels: function() {
         this.$_modelsSelect.clear();
 
-        var selectedMark = this.$_marksSelect.val();
+        var selectedMark = this.getMarkId();
         if (!selectedMark) return;
 
         var models = new Models();
@@ -115,7 +127,7 @@ var SearchForm = Backbone.View.extend({
     doLoadGenerations: function() {
         this.$_generationsSelect.clear();
 
-        var selectedModel = this.$_modelsSelect.val();
+        var selectedModel = this.getModelId();
         if (!selectedModel) return;
 
         var generations = new Generations();
@@ -128,7 +140,7 @@ var SearchForm = Backbone.View.extend({
         this.$_formMessage.hide();
         this._map.clearPoints();
 
-        if (!this.$_marksSelect.val() || !this.$_modelsSelect.val()) {
+        if (!this.getMarkId() || !this.getModelId()) {
             this.$_formMessage.text(this.$_formMessage.data('refineSearch')).show();
             return;
         }
@@ -191,6 +203,10 @@ var SearchForm = Backbone.View.extend({
  * Yandex map view
  */
 var YMap = Backbone.View.extend({
+    events: {
+        'click .js-appointment': 'openAppointment'
+    },
+
     initialize: function() {
         var map = this._map = new ymaps.Map(this.el.id, {
             center: [55.751574, 37.573856],
@@ -238,15 +254,119 @@ var YMap = Backbone.View.extend({
         this._map.setBounds([[minLat, minLon], [maxLat, maxLon]], {
             checkZoomRange: true
         });
+    },
+
+    getCurrentSalonId: function() {
+        return this._currentSalonId;
+    },
+
+    openAppointment: function(event) {
+        this._currentSalonId = $(event.target).data('salonId')
     }
 });
 
+/**
+ * Message box view
+ */
+var MessageBox = Backbone.View.extend({
+    _showType: function(type, text) {
+        this.$el.find('.js-alert').addClass('hide');
+        var row = this.$el.find('.js-' + type);
+        if (text) {
+            row.text(text);
+        }
+        row.removeClass('hide');
+        this.$el.modal('show');
+    },
+
+    success: function(text) {
+        this._showType('success', text);
+    },
+
+    warning: function(text) {
+        this._showType('warning', text);
+    },
+
+    error: function(text) {
+        this._showType('error', text);
+    }
+});
+
+/**
+ * Appointment form
+ */
+var AppointmentForm = Backbone.View.extend({
+    events: {
+        'submit': 'onSubmit'
+    },
+
+    initialize: function(params) {
+        this._searchForm = params.searchForm;
+        this.$_submitBtn = $('#appointmentFormSubmit');
+        this.$_modal = params.modal;
+        this._messageBox = params.messageBox;
+        this._map = params.map;
+    },
+
+    onSubmit: function(event) {
+        if (event.isDefaultPrevented()) {
+            return;
+        }
+
+        event.preventDefault();
+        var $form = this.$el,
+            self = this,
+            data = _.extend($form.serializeObject(), {
+                'mark_id': this._searchForm.getMarkId(),
+                'model_id': this._searchForm.getModelId(),
+                'generation_id': this._searchForm.getGenerationId(),
+                'salon_id': this._map.getCurrentSalonId()
+            });
+
+        $.ajax({
+            url: $form.attr('action'),
+            type: $form.attr('method'),
+            data: data,
+
+            beforeSend: function() {
+                self.$_submitBtn.addClass('_loading');
+            },
+
+            complete: function() {
+                self.$_submitBtn.removeClass('_loading');
+                self.$_modal.modal('hide');
+            },
+
+            success: function(data) {
+                self._messageBox.success();
+            },
+
+            error: function(xhr) {
+                if (xhr.status == 422) {
+                    self._messageBox.warning(xhr.responseJSON.join(' '));
+                } else {
+                    self._messageBox.error();
+                }
+            }
+        });
+    }
+});
 
 // init map and search form
 ymaps.ready(function() {
-    new SearchForm({
+    var map = new YMap({el: $('#map')});
+
+    var searchForm = new SearchForm({
         el: $('#searchForm'),
-        map: new YMap({el: $('#map')})
+        map: map
+    });
+
+    new AppointmentForm({
+        el: $('#appointmentForm'),
+        searchForm: searchForm,
+        modal: $('#appointmentModal'),
+        messageBox: new MessageBox({el: $('#messageModal')}),
+        map: map
     });
 
     $('#preloader').fadeOut();

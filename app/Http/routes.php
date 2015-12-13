@@ -17,6 +17,7 @@ Route::group(['namespace' => 'Client'], function() {
 
 Route::group(['namespace' => 'Api', 'prefix' => 'api'], function() {
     Route::post('search', 'SearchController@index');
+    Route::post('appointment', 'OrderController@place');
 
     Route::group(['namespace' => 'Auto', 'prefix' => 'auto'], function() {
         Route::resource('mark.models', 'MarkModelsController', ['only' => ['index']]);
